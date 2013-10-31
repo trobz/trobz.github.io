@@ -24,7 +24,9 @@
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 	
-	  ga('create', 'UA-45065300-1', 'trobz.github.io');
+	  //ga('create', 'UA-45065300-1', 'trobz.github.io');
+	  // try solution from http://stackoverflow.com/questions/19515805/cant-verify-google-tracking-code-on-github-page
+	  ga('create', 'UA-45065300-1', {'cookieDomain': 'trobz.github.io'});
 	  ga('send', 'pageview');
 	
 	</script>
