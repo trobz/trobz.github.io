@@ -1,0 +1,13 @@
+name: "OpenERP Booking Chart"
+description: "Open Source Solutions for the Enterprise | OpenERP Integration | Trobz"
+
+url: "http://trobz.github.io/openerp-booking-chart/"
+
+
+markdown: redcarpet
+permalink: pretty
+
+# github options
+safe: true
+lsi: false
+pygments: true
