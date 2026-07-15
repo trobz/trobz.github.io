@@ -64,7 +64,7 @@
       [-1, 1, -1, 1],
     ];
 
-    const isHeroCell = (rr, cc) => rr === 2 && cc === 3;
+    const isHeroCell = (rr, cc) => false;
 
     const svg = document.querySelector('[data-board-svg]');
     if (!svg) return;
@@ -87,7 +87,7 @@
     const gB = svg.querySelector('[data-group="B"]');
     gB.setAttribute('x', ox - 14);
     gB.setAttribute('y', oy + 2 * h - 2 + groupGap);
-    gB.setAttribute('width', 3 * w + 28);
+    gB.setAttribute('width', 4 * w + 28);
     gB.setAttribute('height', h + 16);
     const gBL = svg.querySelector('[data-group-label="B"]');
     gBL.setAttribute('x', ox - 14);

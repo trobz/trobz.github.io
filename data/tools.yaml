@@ -87,3 +87,11 @@ tools:
     site: https://pypi.org/project/odooly/
     siteLabel: PyPI
     group: B
+  - name: manifestoo
+    slug: manifestoo
+    desc: Reasons about Odoo addons manifests across a codebase. (Acsone)
+    longDesc: A CLI from Acsone that inspects Odoo __manifest__.py files across a codebase to check installability, list dependencies, and detect missing addons.
+    url: https://github.com/acsone/manifestoo
+    site: https://acsone.eu/
+    siteLabel: Acsone
+    group: B
