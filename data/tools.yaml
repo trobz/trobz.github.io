@@ -1,0 +1,89 @@
+tools:
+  - name: local.py
+    slug: local-py
+    desc: Spins up a local Odoo dev environment in one command.
+    longDesc: Wraps repo cloning, addons discovery, and server startup into a single CLI so a new developer can go from checkout to a running instance in minutes.
+    url: https://github.com/trobz/local.py
+    site: https://trobz.github.io/
+    siteLabel: Trobz Open Source
+    group: A
+  - name: odoo-venv
+    slug: odoo-venv
+    desc: Manages isolated Python virtualenvs per Odoo project.
+    longDesc: Creates and manages isolated Python virtualenvs per Odoo version, avoiding dependency clashes between concurrent projects.
+    url: https://github.com/trobz/odoo-venv
+    site: https://trobz.github.io/odoo-venv
+    siteLabel: Trobz Open Source
+    group: A
+  - name: odoo-activity
+    slug: odoo-activity
+    desc: Tracks developer activity across Odoo instances.
+    longDesc: Surfaces what changed across modules, commits, and databases so teams can audit developer activity at a glance.
+    url: https://github.com/trobz/odoo-activity
+    site: https://trobz.github.io/
+    siteLabel: Trobz Open Source
+    group: A
+  - name: odoo-config
+    slug: odoo-config
+    desc: Centralizes and templates Odoo server configuration.
+    longDesc: Generates consistent, environment-aware Odoo server configuration files from a single template.
+    url: https://github.com/trobz/odoo-config
+    site: https://trobz.github.io/odoo-config
+    siteLabel: Trobz Open Source
+    group: A
+  - name: odoo-db
+    slug: odoo-db
+    desc: Command-line helpers for managing Odoo databases.
+    longDesc: Dumps, restores, and inspects Odoo databases from the command line, without opening the Odoo shell.
+    url: https://github.com/trobz/odoo-db
+    site: https://trobz.github.io/
+    siteLabel: Trobz Open Source
+    group: A
+  - name: deploy.py
+    slug: deploy-py
+    desc: Automates deployment of Odoo instances to servers.
+    longDesc: Automates pushing code, running migrations, and restarting services when deploying Odoo instances to a server.
+    url: https://github.com/trobz/deploy.py
+    site: https://trobz.github.io/deploy.py
+    siteLabel: Trobz Open Source
+    group: A
+  - name: odoo-addons-path
+    slug: odoo-addons-path
+    desc: Resolves and composes Odoo addons paths across repos.
+    longDesc: Resolves add-ons across multiple repositories into the addons_path Odoo expects, so multi-repo setups just work.
+    url: https://github.com/trobz/odoo-addons-path
+    site: https://trobz.github.io/odoo-addons-path
+    siteLabel: Trobz Open Source
+    group: A
+  - name: public-skills
+    slug: public-skills
+    desc: Shared internal know-how, published as open docs.
+    longDesc: Packages internal Trobz know-how — conventions, checklists, playbooks — as openly published, reusable skills.
+    url: https://github.com/trobz/public-skills
+    site: https://trobz.github.io/
+    siteLabel: Trobz Open Source
+    group: A
+  - name: odoo-module-migrator
+    slug: odoo-module-migrator
+    desc: Automates Odoo module upgrades across versions. (OCA)
+    longDesc: A community-maintained tool that automates the mechanical parts of upgrading Odoo modules between versions.
+    url: https://github.com/oca/odoo-module-migrator
+    site: https://odoo-community.org/
+    siteLabel: OCA
+    group: B
+  - name: click-odoo
+    slug: click-odoo
+    desc: CLI toolbelt for scripting against Odoo databases. (Acsone)
+    longDesc: A CLI toolbelt from Acsone for scripting against Odoo databases — running one-off tasks without a full Odoo shell.
+    url: https://github.com/acsone/click-odoo
+    site: https://acsone.eu/
+    siteLabel: Acsone
+    group: B
+  - name: odooly
+    slug: odooly
+    desc: Interactive Python shell for exploring Odoo data. (Tinyerp)
+    longDesc: An interactive Python shell for exploring and manipulating Odoo data directly, built by Tinyerp.
+    url: https://github.com/tinyerp/odooly
+    site: https://pypi.org/project/odooly/
+    siteLabel: PyPI
+    group: B

@@ -1,0 +1,106 @@
+{{ define "main" }}
+<div class="page">
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="https://trobz.github.io/" target="_blank" rel="noopener">
+        <img src="{{ "img/footer-logo.png" | relURL }}" alt="Trobz" height="26">
+      </a>
+      <a class="site-header__link" href="#board">Explore the stack &darr;</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <div class="eyebrow">Open Source</div>
+        <h1 class="hero__title">Building the perfect stack, one piece at a time</h1>
+        <p class="hero__lede">No single tool solves everything. Our open-source contributions — the ones we build and the ones we help maintain — interlock into one cohesive Odoo development workflow.</p>
+        <a class="btn btn--primary" href="#board">Explore the stack &darr;</a>
+      </div>
+      <div class="hero__art" aria-hidden="true">
+        <svg viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
+          <path id="hero-base" fill="#3A241C" opacity="0.95"></path>
+          <g class="hero__float hero__float--a">
+            <path id="hero-floatA" fill="#5C3C2C"></path>
+          </g>
+          <g class="hero__float hero__float--b">
+            <path id="hero-floatB" fill="#E54F0D"></path>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="board" class="board">
+    <div class="board__inner">
+      <div class="board__heading">
+        <div class="eyebrow">The Stack</div>
+        <h2 class="board__title">Click a piece to see what it does</h2>
+        <p class="board__lede">Eleven tools, one shared open-source hub — assembled into a single working whole.</p>
+      </div>
+
+      {{/* Mobile card grid */}}
+      <div class="board__mobile" aria-hidden="false">
+        {{ range $i, $t := .Site.Data.tools.tools }}
+        <button type="button" class="piece-card" data-piece-index="{{ $i }}" data-tool-slug="{{ $t.slug }}">
+          <svg class="piece-card__svg" viewBox="0 0 150 130" data-card-svg="{{ $i }}">
+            <path data-card-path fill="" stroke="#1A110E" stroke-width="2"></path>
+          </svg>
+          <div class="piece-card__name">{{ $t.name }}</div>
+          <div class="piece-card__desc">{{ $t.desc }}</div>
+        </button>
+        {{ end }}
+      </div>
+
+      {{/* Desktop interlocking SVG board */}}
+      <div class="board__desktop">
+        <svg class="board__svg" data-board-svg preserveAspectRatio="xMidYMid meet">
+          <rect data-group="A" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="6 6" rx="18"></rect>
+          <text data-group-label="A" fill="rgba(255,255,255,0.5)" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" letter-spacing="1.5">OUR TOOLS</text>
+
+          <rect data-group="B" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="6 6" rx="18"></rect>
+          <text data-group-label="B" fill="rgba(255,255,255,0.5)" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" letter-spacing="1.5">TOOLS WE CONTRIBUTE TO</text>
+
+          {{ range $i, $t := .Site.Data.tools.tools }}
+          <g class="piece" data-piece-index="{{ $i }}" data-tool-slug="{{ $t.slug }}">
+            <path class="piece__path" data-piece-path fill="" stroke="#1A110E" stroke-width="2"></path>
+            <foreignObject data-piece-label width="180" height="40">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="piece__label">{{ $t.name }}</div>
+            </foreignObject>
+          </g>
+          {{ end }}
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__note">Part of Trobz&#39;s open-source hub</div>
+      <a class="site-footer__link" href="https://trobz.github.io/" target="_blank" rel="noopener">trobz.github.io &rarr;</a>
+    </div>
+  </footer>
+
+  <div class="modal" data-modal hidden>
+    <div class="modal__panel" data-modal-panel role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button type="button" class="modal__close" data-modal-close aria-label="Close">&#x2715;</button>
+      <div class="modal__badge" data-modal-badge></div>
+      <h3 class="modal__title" id="modal-title" data-modal-name></h3>
+      <p class="modal__desc" data-modal-desc></p>
+      <div class="modal__shot" data-modal-shot>
+        <div class="modal__shot-placeholder">Screenshot coming soon</div>
+      </div>
+      <div class="modal__actions">
+        <a class="btn btn--outline" data-modal-github target="_blank" rel="noopener">View on GitHub &rarr;</a>
+        <a class="btn btn--primary" data-modal-site target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </div>
+
+  <script id="tools-data" type="application/json">
+    {{ .Site.Data.tools.tools | jsonify | safeJS }}
+  </script>
+
+</div>
+{{ end }}

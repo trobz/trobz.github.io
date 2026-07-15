@@ -1,0 +1,11 @@
+baseURL = 'https://trobz.github.io/'
+languageCode = 'en-us'
+title = 'Trobz Tech Stack Puzzle'
+
+disableKinds = ['taxonomy', 'term', 'RSS', 'sitemap', '404']
+
+[params]
+  description = "Trobz's open-source contributions, one interlocking piece at a time."
+
+[markup.goldmark.renderer]
+  unsafe = true
