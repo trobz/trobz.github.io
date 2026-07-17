@@ -20,6 +20,7 @@ tools:
     slug: odoo-activity
     desc: Tracks developer activity across Odoo instances.
     longDesc: A terminal UI for local Odoo instances.
+    shot: img/shots/odoo-activity.svg
     url: https://github.com/trobz/odoo-activity
     site: https://trobz.github.io/
     siteLabel: Website
@@ -35,7 +36,7 @@ tools:
     group: A
   - name: odoo-db
     slug: odoo-db
-    desc: Command-line helpers for managing Odoo databases.
+    desc: CLI tool for Odoo database management.
     longDesc: Dumps, restores, and inspects Odoo databases from the command line, without opening the Odoo shell.
     url: https://github.com/trobz/odoo-db
     site: https://trobz.github.io/
@@ -63,29 +64,29 @@ tools:
     desc: Shared internal know-how, published as open docs.
     longDesc: Packages internal Trobz know-how — conventions, checklists, playbooks — as openly published, reusable skills.
     url: https://github.com/trobz/public-skills
-    site: https://trobz.github.io/
-    siteLabel: Website
+    site: https://trobz.ai/blog/agent-skills-claude-code-explained/
+    siteLabel: Blog post
     group: A
   - name: odoo-module-migrator
     slug: odoo-module-migrator
     desc: Automates Odoo module upgrades across versions. (OCA)
     longDesc: A community-maintained tool that automates the mechanical parts of upgrading Odoo modules between versions.
     url: https://github.com/oca/odoo-module-migrator
-    site: https://odoo-community.org/
-    siteLabel: OCA
+    site: https://github.com/trobz/odoo-module-migrator/pull/2
+    siteLabel: Trobz fork
     group: B
   - name: click-odoo
     slug: click-odoo
     desc: CLI toolbelt for scripting against Odoo databases. (Acsone)
     longDesc: A CLI toolbelt from Acsone for scripting against Odoo databases — running one-off tasks without a full Odoo shell.
     url: https://github.com/acsone/click-odoo
-    site: https://acsone.eu/
-    siteLabel: Acsone
+    site: https://pypi.org/project/click-odoo/
+    siteLabel: PyPI
     group: B
   - name: odooly
     slug: odooly
-    desc: Interactive Python shell for exploring Odoo data. (Tinyerp)
-    longDesc: An interactive Python shell for exploring and manipulating Odoo data directly, built by Tinyerp.
+    desc: Interactive Python shell for exploring Odoo data. (Florent Xicluna)
+    longDesc: An interactive Python shell for exploring and manipulating Odoo data directly, built by Florent Xicluna (https://github.com/florentx).
     url: https://github.com/tinyerp/odooly
     site: https://pypi.org/project/odooly/
     siteLabel: PyPI
@@ -93,8 +94,17 @@ tools:
   - name: manifestoo
     slug: manifestoo
     desc: Reasons about Odoo addons manifests across a codebase. (Acsone)
-    longDesc: A CLI from Acsone that inspects Odoo __manifest__.py files across a codebase to check installability, list dependencies, and detect missing addons.
+    longDesc: "Manifestoo is a command line tool that provides the following features:"
+    features:
+      - Listing addons
+      - Listing direct and transitive dependencies of selected addons
+      - Listing direct and transitive co-dependencies of selected addons
+      - Listing core Odoo CE and EE addons
+      - Listing external dependencies
+      - Listing missing dependencies
+      - Displaying the dependency tree
+      - And more
     url: https://github.com/acsone/manifestoo
-    site: https://acsone.eu/
-    siteLabel: Acsone
+    site: https://pypi.org/project/manifestoo/
+    siteLabel: PyPI
     group: B

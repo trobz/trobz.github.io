@@ -312,6 +312,19 @@ foreignObject[data-piece-label] { pointer-events: none; overflow: visible; }
   color: var(--text-2);
   margin: 0 0 20px;
 }
+.modal__desc p {
+  margin: 0 0 12px;
+}
+.modal__desc p:last-child {
+  margin-bottom: 0;
+}
+.modal__features {
+  margin: 0;
+  padding-left: 20px;
+}
+.modal__features li {
+  margin-bottom: 6px;
+}
 .modal__shot {
   margin-bottom: 24px;
 }

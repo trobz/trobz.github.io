@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#12141c"/>
+  <rect x="1" y="1" width="1198" height="748" fill="none" stroke="#2a2e3a" stroke-width="2"/>
+  <text x="600" y="360" font-family="Menlo, Consolas, monospace" font-size="42" fill="#8a8fa3" text-anchor="middle">coming soon</text>
+  <text x="600" y="410" font-family="Menlo, Consolas, monospace" font-size="24" fill="#4d5265" text-anchor="middle">odoo-activity</text>
+</svg>

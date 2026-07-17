@@ -192,7 +192,20 @@
     if (!tool) return;
     modalBadge.textContent = tool.group === 'A' ? 'Our tool' : 'External contribution';
     modalName.textContent = tool.name;
-    modalDesc.textContent = tool.longDesc;
+    modalDesc.innerHTML = '';
+    const descP = document.createElement('p');
+    descP.textContent = tool.longDesc;
+    modalDesc.appendChild(descP);
+    if (Array.isArray(tool.features) && tool.features.length) {
+      const ul = document.createElement('ul');
+      ul.className = 'modal__features';
+      tool.features.forEach((feature) => {
+        const li = document.createElement('li');
+        li.textContent = feature;
+        ul.appendChild(li);
+      });
+      modalDesc.appendChild(ul);
+    }
     modalGithub.href = tool.url;
     modalSite.href = tool.site;
     modalSite.innerHTML = `${tool.siteLabel} &rarr;`;
