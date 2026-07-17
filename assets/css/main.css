@@ -21,6 +21,10 @@ html, body {
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg-page);
   color: var(--text);
@@ -232,16 +236,6 @@ foreignObject[data-piece-label] { pointer-events: none; overflow: visible; }
   color: var(--text-2);
   margin-top: 4px;
   line-height: 1.4;
-}
-
-/* Entrance animation */
-.piece[data-mount="pending"] { opacity: 0; }
-.piece[data-mount="ready"] {
-  opacity: 1;
-  transform: translate(0, 0);
-  transition:
-    transform 0.7s cubic-bezier(0.2, 0.85, 0.25, 1),
-    opacity 0.5s ease;
 }
 
 /* MODAL */
