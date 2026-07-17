@@ -1,3 +1,3 @@
 ---
-title: "Tech Stack Puzzle"
+title: ""
 ---

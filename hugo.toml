@@ -1,6 +1,6 @@
 baseURL = 'https://trobz.github.io/'
 languageCode = 'en-us'
-title = 'Trobz Tech Stack Puzzle'
+title = 'Trobz Technical Stack'
 
 disableKinds = ['taxonomy', 'term', 'RSS', 'sitemap', '404']
 

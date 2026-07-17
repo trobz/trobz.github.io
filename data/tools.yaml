@@ -5,7 +5,7 @@ tools:
     longDesc: Wraps repo cloning, addons discovery, and server startup into a single CLI so a new developer can go from checkout to a running instance in minutes.
     url: https://github.com/trobz/local.py
     site: https://trobz.github.io/
-    siteLabel: Trobz Open Source
+    siteLabel: Website
     group: A
   - name: odoo-venv
     slug: odoo-venv
@@ -13,15 +13,16 @@ tools:
     longDesc: Creates and manages isolated Python virtualenvs per Odoo version, avoiding dependency clashes between concurrent projects.
     url: https://github.com/trobz/odoo-venv
     site: https://trobz.github.io/odoo-venv
-    siteLabel: Trobz Open Source
+    siteLabel: Website
+    shot: img/shots/odoo-venv.png
     group: A
   - name: odoo-activity
     slug: odoo-activity
     desc: Tracks developer activity across Odoo instances.
-    longDesc: Surfaces what changed across modules, commits, and databases so teams can audit developer activity at a glance.
+    longDesc: A terminal UI for local Odoo instances.
     url: https://github.com/trobz/odoo-activity
     site: https://trobz.github.io/
-    siteLabel: Trobz Open Source
+    siteLabel: Website
     group: A
   - name: odoo-config
     slug: odoo-config
@@ -29,7 +30,8 @@ tools:
     longDesc: Generates consistent, environment-aware Odoo server configuration files from a single template.
     url: https://github.com/trobz/odoo-config
     site: https://trobz.github.io/odoo-config
-    siteLabel: Trobz Open Source
+    siteLabel: Website
+    shot: img/shots/odoo-config.png
     group: A
   - name: odoo-db
     slug: odoo-db
@@ -37,7 +39,7 @@ tools:
     longDesc: Dumps, restores, and inspects Odoo databases from the command line, without opening the Odoo shell.
     url: https://github.com/trobz/odoo-db
     site: https://trobz.github.io/
-    siteLabel: Trobz Open Source
+    siteLabel: Website
     group: A
   - name: deploy.py
     slug: deploy-py
@@ -45,7 +47,8 @@ tools:
     longDesc: Automates pushing code, running migrations, and restarting services when deploying Odoo instances to a server.
     url: https://github.com/trobz/deploy.py
     site: https://trobz.github.io/deploy.py
-    siteLabel: Trobz Open Source
+    siteLabel: Website
+    shot: img/shots/deploy-py.png
     group: A
   - name: odoo-addons-path
     slug: odoo-addons-path
@@ -53,7 +56,7 @@ tools:
     longDesc: Resolves add-ons across multiple repositories into the addons_path Odoo expects, so multi-repo setups just work.
     url: https://github.com/trobz/odoo-addons-path
     site: https://trobz.github.io/odoo-addons-path
-    siteLabel: Trobz Open Source
+    siteLabel: Website
     group: A
   - name: public-skills
     slug: public-skills
@@ -61,7 +64,7 @@ tools:
     longDesc: Packages internal Trobz know-how — conventions, checklists, playbooks — as openly published, reusable skills.
     url: https://github.com/trobz/public-skills
     site: https://trobz.github.io/
-    siteLabel: Trobz Open Source
+    siteLabel: Website
     group: A
   - name: odoo-module-migrator
     slug: odoo-module-migrator

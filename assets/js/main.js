@@ -185,6 +185,7 @@
   const modalDesc = document.querySelector('[data-modal-desc]');
   const modalGithub = document.querySelector('[data-modal-github]');
   const modalSite = document.querySelector('[data-modal-site]');
+  const modalShot = document.querySelector('[data-modal-shot]');
 
   function openModal(index) {
     const tool = tools[index];
@@ -195,6 +196,13 @@
     modalGithub.href = tool.url;
     modalSite.href = tool.site;
     modalSite.innerHTML = `${tool.siteLabel} &rarr;`;
+    if (tool.shot) {
+      modalShot.innerHTML = `<img class="modal__shot-img" src="/${tool.shot}" alt="${tool.name} screenshot">`;
+      modalShot.hidden = false;
+    } else {
+      modalShot.innerHTML = '';
+      modalShot.hidden = true;
+    }
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
   }

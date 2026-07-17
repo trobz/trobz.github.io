@@ -15,7 +15,6 @@
       <div class="hero__copy">
         <div class="eyebrow">Open Source</div>
         <h1 class="hero__title">Building the perfect stack, one piece at a time</h1>
-        <p class="hero__lede">No single tool solves everything. Our open-source contributions — the ones we build and the ones we help maintain — interlock into one cohesive Odoo development workflow.</p>
         <a class="btn btn--primary" href="#board">Explore the stack &darr;</a>
       </div>
       <div class="hero__art" aria-hidden="true">
@@ -60,7 +59,7 @@
           <text data-group-label="A" fill="rgba(255,255,255,0.5)" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" letter-spacing="1.5">OUR TOOLS</text>
 
           <rect data-group="B" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="6 6" rx="18"></rect>
-          <text data-group-label="B" fill="rgba(255,255,255,0.5)" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" letter-spacing="1.5">TOOLS WE CONTRIBUTE TO</text>
+          <text data-group-label="B" fill="rgba(255,255,255,0.5)" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" letter-spacing="1.5">TOOLS WE USE AND CONTRIBUTE TO</text>
 
           {{ range $i, $t := .Site.Data.tools.tools }}
           <g class="piece" data-piece-index="{{ $i }}" data-tool-slug="{{ $t.slug }}">
@@ -88,9 +87,7 @@
       <div class="modal__badge" data-modal-badge></div>
       <h3 class="modal__title" id="modal-title" data-modal-name></h3>
       <p class="modal__desc" data-modal-desc></p>
-      <div class="modal__shot" data-modal-shot>
-        <div class="modal__shot-placeholder">Screenshot coming soon</div>
-      </div>
+      <div class="modal__shot" data-modal-shot hidden></div>
       <div class="modal__actions">
         <a class="btn btn--outline" data-modal-github target="_blank" rel="noopener">View on GitHub &rarr;</a>
         <a class="btn btn--primary" data-modal-site target="_blank" rel="noopener"></a>
