@@ -127,28 +127,68 @@
         label.setAttribute('x', x + w / 2 - 90);
         label.setAttribute('y', y + h / 2 - 12);
 
-        // Entrance offsets
-        const offX = (idx % 2 === 0 ? -1 : 1) * (40 + (idx % 3) * 14);
-        const offY = (idx % 3 === 0 ? -1 : 1) * (30 + (idx % 4) * 10);
-        g.style.transform = `translate(${offX}px, ${offY}px)`;
-        g.style.opacity = '0';
-        g.style.transitionDelay = `${idx * 60}ms`;
-        g.setAttribute('data-mount', 'pending');
-
         idx++;
       }
     }
 
-    // Trigger entrance stagger
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        pieceNodes.forEach((g) => {
-          g.style.transform = 'translate(0, 0)';
-          g.style.opacity = '1';
-          g.setAttribute('data-mount', 'ready');
-        });
-      });
+    watchScrollAssembly(pieceNodes);
+  }
+
+  // Ties each piece's position/opacity directly to scroll progress through the
+  // board section, so the puzzle assembles and disassembles as the user scrolls
+  // (rather than playing a one-shot entrance animation).
+  function watchScrollAssembly(pieceNodes) {
+    const target = document.querySelector('.board__desktop') || document.getElementById('board');
+    if (!target) return;
+
+    const total = pieceNodes.length;
+    const offsets = Array.from(pieceNodes).map((g, i) => {
+      const idx = parseInt(g.getAttribute('data-piece-index'), 10);
+      const n = Number.isNaN(idx) ? i : idx;
+      return {
+        offX: (n % 2 === 0 ? -1 : 1) * (40 + (n % 3) * 14),
+        offY: (n % 3 === 0 ? -1 : 1) * (30 + (n % 4) * 10),
+      };
     });
+
+    let ticking = false;
+
+    function update() {
+      ticking = false;
+      const rect = target.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      // 0 when the piece grid's top is at the bottom of the viewport, 1 once
+      // the grid's own center reaches the viewport's center (fully
+      // assembled/stable). Stays at 1 once scrolled past that point.
+      const targetCenter = rect.top + rect.height / 2;
+      const viewportCenter = vh / 2;
+      const maxDistance = vh / 2 + rect.height / 2;
+      const distance = targetCenter - viewportCenter;
+      const raw = 1 - distance / maxDistance;
+      const progress = Math.min(Math.max(raw, 0), 1);
+
+      pieceNodes.forEach((g, i) => {
+        // Stagger: each piece needs a slightly later slice of the scroll
+        // range to assemble, so pieces settle in a wave rather than at once.
+        const start = (i / total) * 0.5;
+        const p = Math.min(Math.max((progress - start) / (1 - start), 0), 1);
+        const { offX, offY } = offsets[i];
+        g.style.transform = `translate(${offX * (1 - p)}px, ${offY * (1 - p)}px)`;
+        g.style.opacity = String(0.15 + 0.85 * p);
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
   }
 
   // --- Mobile cards ---
