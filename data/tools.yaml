@@ -18,10 +18,19 @@ tools:
     group: A
   - name: odoo-activity
     slug: odoo-activity
-    desc: Tracks developer activity across Odoo instances.
-    longDesc: A terminal UI for local Odoo instances.
-    shot: img/shots/odoo-activity.svg
+    desc: Terminal UI for monitoring and controlling Odoo instances.
+    longDesc: A terminal UI for Odoo instances, local or remote over ssh — host and instance health, databases, logs, processes, and cron/queue inspection on one screen.
+    shot: img/shots/odoo-activity.gif
     url: https://github.com/trobz/odoo-activity
+    site: https://trobz.github.io/odoo-activity
+    siteLabel: Website
+    group: A
+  - name: odoo-logs
+    slug: odoo-logs
+    desc: Extracts structured, filtered data from Odoo server logs.
+    longDesc: Reads plain and gzipped Odoo server logs (9.0 through 18.0) and turns them into structured, filtered data — errors, cron runs, logins, RPC calls — instead of grepping them by hand.
+    shot: img/shots/odoo-logs.svg
+    url: https://github.com/trobz/odoo-logs
     site: https://trobz.github.io/
     siteLabel: Website
     group: A
@@ -106,5 +115,14 @@ tools:
       - And more
     url: https://github.com/acsone/manifestoo
     site: https://pypi.org/project/manifestoo/
+    siteLabel: PyPI
+    group: B
+  - name: odoo-openupgrade-wizard
+    slug: odoo-openupgrade-wizard
+    desc: Automates OpenUpgrade migration workflows for Odoo.
+    longDesc: A wizard that drives OpenUpgrade database migrations across Odoo major versions, scripting the steps around the OpenUpgrade upgrade process.
+    url: https://gitlab.com/odoo-openupgrade-wizard/odoo-openupgrade-wizard
+    repoLabel: GitLab
+    site: https://pypi.org/project/odoo-openupgrade-wizard/
     siteLabel: PyPI
     group: B

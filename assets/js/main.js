@@ -3,6 +3,13 @@
 
   const tools = JSON.parse(document.getElementById('tools-data').textContent);
 
+  // A tool with no dedicated docs/site page yet falls back to the site
+  // root as its `site` link — not worth its own "Website" button in the
+  // modal, since it just points back to the page the visitor is already on.
+  function hasRealSite(tool) {
+    return Boolean(tool.site) && tool.site !== 'https://trobz.github.io/';
+  }
+
   // --- Jigsaw geometry ---
   function hEdge(x1, x2, y, outward, depth, a, normalSign) {
     if (outward === null) return `L ${x2} ${y}`;
@@ -49,22 +56,21 @@
 
   // --- Board build ---
   function buildBoard() {
-    const cols = 4, rows = 3;
+    const cols = 4;
     const w = 220, h = 170, depth = 22, a = 0.34;
     const ox = 40, oy = 90;
-    const groupGap = 44;
+    const groupGap = 74;
 
-    const signH = [
-      [1, -1, 1],
-      [-1, 1, -1],
-      [1, -1, 1],
-    ];
-    const signV = [
-      [1, -1, 1, -1],
-      [-1, 1, -1, 1],
-    ];
+    const groupATools = tools.filter((t) => t.group === 'A');
+    const groupBTools = tools.filter((t) => t.group === 'B');
+    const rowsA = Math.max(1, Math.ceil(groupATools.length / cols));
+    const rowsB = Math.max(1, Math.ceil(groupBTools.length / cols));
+    const rows = rowsA + rowsB;
 
-    const isHeroCell = (rr, cc) => false;
+    // Alternating bump direction, checkerboarded across the whole grid so
+    // adjoining pieces always interlock (this reproduces the previous
+    // hand-written signH/signV tables for any grid size).
+    const sign = (r, c) => ((r + c) % 2 === 0 ? 1 : -1);
 
     const svg = document.querySelector('[data-board-svg]');
     if (!svg) return;
@@ -73,63 +79,78 @@
     const boardH = oy + rows * h + groupGap + 30;
     svg.setAttribute('viewBox', `0 0 ${boardW} ${boardH}`);
 
-    // Group A (rows 0-1)
+    // Group A. Height must clear the actual bottom of its last row (rowsA *
+    // h below the box top, which sits 30 above the first row) plus a 14
+    // bottom pad matching the 14 side pads (cols * w + 28) — using a flat
+    // "+16" here (as if the box top had no extra headroom above row 0)
+    // left the box 14 short, so the last row's pieces poked out past the
+    // dashed line.
     const gA = svg.querySelector('[data-group="A"]');
     gA.setAttribute('x', ox - 14);
-    gA.setAttribute('y', oy - 30);
+    gA.setAttribute('y', oy - 14);
     gA.setAttribute('width', cols * w + 28);
-    gA.setAttribute('height', 2 * h + 16);
+    gA.setAttribute('height', rowsA * h + 28);
     const gAL = svg.querySelector('[data-group-label="A"]');
     gAL.setAttribute('x', ox - 14);
-    gAL.setAttribute('y', oy - 40);
+    gAL.setAttribute('y', oy - 24);
 
-    // Group B (row 2, cols 0-2) — shifted down by groupGap
+    // Group B — shifted down by groupGap. Same 14-unit pad on all four
+    // sides as group A.
     const gB = svg.querySelector('[data-group="B"]');
     gB.setAttribute('x', ox - 14);
-    gB.setAttribute('y', oy + 2 * h - 2 + groupGap);
-    gB.setAttribute('width', 4 * w + 28);
-    gB.setAttribute('height', h + 16);
+    gB.setAttribute('y', oy + rowsA * h - 14 + groupGap);
+    gB.setAttribute('width', cols * w + 28);
+    gB.setAttribute('height', rowsB * h + 28);
     const gBL = svg.querySelector('[data-group-label="B"]');
     gBL.setAttribute('x', ox - 14);
-    gBL.setAttribute('y', oy + 2 * h - 12 + groupGap);
+    gBL.setAttribute('y', oy + rowsA * h - 24 + groupGap);
 
-    // Pieces
     const pieceNodes = svg.querySelectorAll('.piece');
-    let idx = 0, idxA = 0, idxB = 0;
+    const browns = { A: brownsA, B: brownsB };
+    const brownIdx = { A: 0, B: 0 };
 
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        if (isHeroCell(r, c)) continue;
-        const g = pieceNodes[idx];
-        if (!g) { idx++; continue; }
-        const tool = tools[idx];
-        const x = ox + c * w;
-        const y = oy + r * h + (r === 2 ? groupGap : 0);
+    // Places one tool's piece at grid cell (r, c). rightExists/bottomExists
+    // tell it whether a same-group neighbor actually sits there, so a
+    // partial last row (group size not a multiple of `cols`) doesn't grow a
+    // bump pointing into empty space.
+    function place(tool, globalIndex, r, c, rightExists, bottomExists) {
+      const g = pieceNodes[globalIndex];
+      if (!g) return;
+      const x = ox + c * w;
+      const y = oy + r * h + (r >= rowsA ? groupGap : 0);
 
-        // Break interlock at the group A/B boundary (between row 1 and row 2).
-        const atGroupBoundaryTop    = r === 2;
-        const atGroupBoundaryBottom = r === 1;
+      // Break interlock at the group A/B boundary.
+      const atGroupBoundaryTop    = r === rowsA;
+      const atGroupBoundaryBottom = r === rowsA - 1;
 
-        const sides = {
-          top:    (r === 0        || isHeroCell(r - 1, c) || atGroupBoundaryTop)    ? null : (signV[r - 1] ? signV[r - 1][c] === -1 : null),
-          bottom: (r === rows - 1 || isHeroCell(r + 1, c) || atGroupBoundaryBottom) ? null : (signV[r]     ? signV[r][c]     === 1  : null),
-          left:   (c === 0        || isHeroCell(r, c - 1)) ? null : (signH[r][c - 1] === -1),
-          right:  (c === cols - 1 || isHeroCell(r, c + 1)) ? null : (signH[r][c]     === 1),
-        };
+      const sides = {
+        top:    (r === 0        || atGroupBoundaryTop)    ? null : sign(r - 1, c) === -1,
+        bottom: (r === rows - 1 || atGroupBoundaryBottom || !bottomExists) ? null : sign(r, c) === 1,
+        left:   (c === 0) ? null : sign(r, c - 1) === -1,
+        right:  (c === cols - 1 || !rightExists) ? null : sign(r, c) === 1,
+      };
 
-        const d = piecePath(x, y, w, h, sides, depth, a);
-        const path = g.querySelector('[data-piece-path]');
-        path.setAttribute('d', d);
-        const fill = tool.group === 'A' ? brownsA[idxA++ % brownsA.length] : brownsB[idxB++ % brownsB.length];
-        path.setAttribute('fill', fill);
+      const d = piecePath(x, y, w, h, sides, depth, a);
+      const path = g.querySelector('[data-piece-path]');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', browns[tool.group][brownIdx[tool.group]++ % browns[tool.group].length]);
 
-        const label = g.querySelector('[data-piece-label]');
-        label.setAttribute('x', x + w / 2 - 90);
-        label.setAttribute('y', y + h / 2 - 12);
-
-        idx++;
-      }
+      const label = g.querySelector('[data-piece-label]');
+      label.setAttribute('x', x + w / 2 - 90);
+      label.setAttribute('y', y + h / 2 - 12);
     }
+
+    groupATools.forEach((tool, i) => {
+      const r = Math.floor(i / cols);
+      const c = i % cols;
+      place(tool, i, r, c, c < cols - 1 && i + 1 < groupATools.length, i + cols < groupATools.length);
+    });
+
+    groupBTools.forEach((tool, i) => {
+      const r = rowsA + Math.floor(i / cols);
+      const c = i % cols;
+      place(tool, groupATools.length + i, r, c, c < cols - 1 && i + 1 < groupBTools.length, i + cols < groupBTools.length);
+    });
 
     watchScrollAssembly(pieceNodes);
   }
@@ -247,8 +268,14 @@
       modalDesc.appendChild(ul);
     }
     modalGithub.href = tool.url;
-    modalSite.href = tool.site;
-    modalSite.innerHTML = `${tool.siteLabel} &rarr;`;
+    modalGithub.innerHTML = `View on ${tool.repoLabel || 'GitHub'} &rarr;`;
+    if (hasRealSite(tool)) {
+      modalSite.href = tool.site;
+      modalSite.innerHTML = `${tool.siteLabel} &rarr;`;
+      modalSite.style.display = '';
+    } else {
+      modalSite.style.display = 'none';
+    }
     if (tool.shot) {
       modalShot.innerHTML = `<img class="modal__shot-img" src="/${tool.shot}" alt="${tool.name} screenshot">`;
       modalShot.hidden = false;
